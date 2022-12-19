@@ -97,12 +97,14 @@ This code generation robustness benchmark (ReCode) is developed by a team in Ama
 - Shiqi Wang, wshiqi@amazon.com, (main developer)
 - Zheng Li, zl634@cornell.edu
 - Haifeng Qian, qianhf@amazon.com
-- Mingyue Shang, myshang@amazon.com
 - Chenghao Yang, ychengha@amazon.com
 - Zijian Wang, zijwan@amazon.com
+- Mingyue Shang, myshang@amazon.com
 - Varun Kumar, kuvrun@amazon.com
 - Samson Tan, samson@amazon.com
 - Baishakhi Ray, rabaisha@amazon.com
 - Parminder Bhatia, parmib@amazon.com
+- Ramesh Nallapati, rnallapa@amazon.com
 - Murali Krishna Ramanathan, mkraman@amazon.com
+- Dan Roth, drot@amazon.com
 - Bing Xiang, bxiang@amazon.com
