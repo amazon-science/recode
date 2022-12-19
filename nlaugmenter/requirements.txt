@@ -31,7 +31,7 @@ black==21.5b2
 # setuptools<59.7.0
 
 lemminflect==0.2.2
-nltk==3.6.2
+nltk==3.6.6
 
 torchtext
 pattern@git+https://github.com/tanay2001/pattern.git
