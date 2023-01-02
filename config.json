@@ -1,0 +1,32 @@
+{
+    "humaneval":{
+        "NL_AUG_RECIPES": ["BackTranslation", "ButterFingersPerturbation", "ChangeCharCase", "EnglishInflectionalVariation", 
+                    "SwapCharactersPerturbation", "SynonymInsertion", "SynonymSubstitution", "TenseTransformationPast", 
+                    "TenseTransformationFuture", "WhitespacePerturbation"],
+        "PARTIAL_RECIPES": ["DeadCodeInserter", "ForWhileTransformer", "OperandSwap", "VarRenamerCB", "VarRenamerNaive", "VarRenamerRN"],
+        "FUNC_RECIPES": ["FuncRenameCamelCase", "FuncRenameButterFinger", "FuncRenameSwapChar", "FuncRenameChangeChar", "FuncRenameInflectionalVariation", "FuncRenameSynonymSub"],
+        "FORMAT_RECIPES": ["tab_indent", "split_lines", "doc2comments", "new_lines", "new_line_aftercode", "new_line_afterdoc"]
+    }, 
+    "mbpp":{
+        "NL_AUG_RECIPES": ["BackTranslation", "ButterFingersPerturbation", "ChangeCharCase", "EnglishInflectionalVariation", 
+                    "SwapCharactersPerturbation", "SynonymInsertion", "SynonymSubstitution", "TenseTransformationPast", 
+                    "TenseTransformationFuture", "WhitespacePerturbation"],
+        "PARTIAL_RECIPES": ["DeadCodeInserter", "ForWhileTransformer", "OperandSwap", "VarRenamerCB", "VarRenamerNaive", "VarRenamerRN"],
+        "FUNC_RECIPES": ["FuncRenameCamelCase", "FuncRenameButterFinger", "FuncRenameSwapChar", "FuncRenameChangeChar", "FuncRenameInflectionalVariation", "FuncRenameSynonymSub"],
+        "FORMAT_RECIPES": ["tab_indent", "split_lines", "doc2comments", "new_lines", "new_line_aftercode", "new_line_afterdoc"]
+    }, 
+    "RECIPES": {
+        "nlaugmenter": "NL_AUG_RECIPES", "natgen": "PARTIAL_RECIPES", "format": "FORMAT_RECIPES", "func_name": "FUNC_RECIPES", "random": "FULL_RECIPES"
+    },
+    "RANDOM_TRANS": ["ButterFingersPerturbation", "ChangeCharCase", "EnglishInflectionalVariation",
+        "SwapCharactersPerturbation", "SynonymInsertion", "SynonymSubstitution", "WhitespacePerturbation",
+        "DeadCodeInserter", "VarRenamerRN", 
+        "FuncRenameButterFinger", "FuncRenameSwapChar", "FuncRenameChangeChar", "FuncRenameInflectionalVariation", "FuncRenameSynonymSub", 
+        "new_lines"
+    ],
+    "data_path": "datasets/nominal",
+    "DATASET_PATH": {"humaneval": "HumanEval.jsonl", "mbpp": "mbpp_wtest.jsonl"},
+    "output_adv_path": "datasets/perturbed/",
+    "model_generate_path": "eval_results/",
+    "run_script": "cd evaluate-public-models & evaluate-public-models/run_eval_models.sh"
+}
