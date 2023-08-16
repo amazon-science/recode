@@ -32,12 +32,12 @@ def replace_func_name(code, entry_point, new_func_name):
     return code.replace(entry_point, new_func_name), new_func_name
 
 
-def FuncRenameSynonymSub(code, entry_point):
+def FuncRenameSynonymSub(code, entry_point, seed=0):
     """ Using synonum substitution to perturb function name
     >>> example1: has_close_elements => receive_close_element
     >>> example2: hasCloseElements => receiveCloseElements
     """
-    t = SynonymSubstitution()
+    t = SynonymSubstitution(seed=seed)
     new_code = str(code)
     if not isinstance(entry_point, list):
         entry_points = [entry_point]
@@ -63,10 +63,10 @@ def FuncRenameSynonymSub(code, entry_point):
     return new_code, new_func_name
 
 
-def FuncRenameInflectionalVariation(code, entry_point):
+def FuncRenameInflectionalVariation(code, entry_point, seed):
     """ Using english inflectional variation to perturb function name
     """
-    t = EnglishInflectionalVariation()
+    t = EnglishInflectionalVariation(seed=seed)
     new_code = str(code)
     if not isinstance(entry_point, list):
         entry_points = [entry_point]
@@ -92,10 +92,10 @@ def FuncRenameInflectionalVariation(code, entry_point):
     return new_code, new_func_name
 
 
-def FuncRenameChangeChar(code, entry_point):
+def FuncRenameChangeChar(code, entry_point, seed):
     """ Using random character case changes to perturb function name
     """
-    t = ChangeCharCase(prob=0.35)
+    t = ChangeCharCase(seed=seed, prob=0.35)
     # default 0.1 would be too small since func name is short
     new_code = str(code)
     if not isinstance(entry_point, list):
@@ -110,10 +110,10 @@ def FuncRenameChangeChar(code, entry_point):
     return new_code, new_func_name
 
 
-def FuncRenameSwapChar(code, entry_point):
+def FuncRenameSwapChar(code, entry_point, seed):
     """ Using character swap to perturb function name
     """
-    t = SwapCharactersPerturbation()
+    t = SwapCharactersPerturbation(seed=seed)
     new_code = str(code)
     if not isinstance(entry_point, list):
         entry_points = [entry_point]
@@ -128,10 +128,10 @@ def FuncRenameSwapChar(code, entry_point):
     return new_code, new_func_name
 
 
-def FuncRenameButterFinger(code, entry_point):
+def FuncRenameButterFinger(code, entry_point, seed):
     """ Using butterfinger to perturb function name
     """
-    t = ButterFingersPerturbation()
+    t = ButterFingersPerturbation(seed=seed)
     new_code = str(code)
     if not isinstance(entry_point, list):
         entry_points = [entry_point]
@@ -145,7 +145,7 @@ def FuncRenameButterFinger(code, entry_point):
     return new_code, new_func_name
 
 
-def FuncRenameCamelCase(code, entry_point):
+def FuncRenameCamelCase(code, entry_point, seed=0):
     """ Perturb between two versions of function name
     We might have input function names as list which means we need to perturb all these names
     >>> example1: has_close_elements => hasCloseElements

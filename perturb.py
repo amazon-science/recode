@@ -356,7 +356,7 @@ def perturb_func_name(args, data, recipes):
             print(" === orig === ")
             print(entry["prompt"])
 
-        res["prompt"], res["entry_point"] = eval(recipes[args.aug_method])(entry["prompt"], entry["entry_point"])
+        res["prompt"], res["entry_point"] = eval(recipes[args.aug_method])(entry["prompt"], entry["entry_point"], seed=args.seed)
 
         if args.print_sample:
             print(f" === perturbed with {recipes[args.aug_method]} (success: {res['prompt']!=entry['prompt']}) === ")
@@ -486,7 +486,7 @@ if __name__ == '__main__':
     output_adv_path = os.path.join(output_adv_path, args.output_name)
     print(f"generated outputs will be saved in {output_adv_path}")
     # handle overwrite if exists
-    if os.path.exists(output_adv_path):
+    if os.path.exists(output_adv_path) and not args.print_sample:
         print(f"{output_adv_path} exists")
         if not args.overwrite:
             print(f"Not overwrite, stop generating!")
@@ -543,7 +543,8 @@ if __name__ == '__main__':
         elif args.method == "random":
             generated_data = perturb_random(args, data_path, FULL_RECIPES)
 
-    write_generated_data(args, output_adv_path, generated_data)
+    if not args.print_sample:
+        write_generated_data(args, output_adv_path, generated_data)
 
     
 

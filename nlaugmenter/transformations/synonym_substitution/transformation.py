@@ -100,7 +100,7 @@ class SynonymSubstitution(SentenceOperation):
         super().__init__(seed, max_outputs=max_outputs)
         self.nlp = spacy_nlp if spacy_nlp else spacy.load("en_core_web_sm")
         self.prob = prob
-        nltk.download("wordnet")
+        nltk.download("wordnet", quiet=True)
         ''' Start of Amazon Addition '''
         self.perturb_level = "word-level"
         ''' End of Amazon Addition '''

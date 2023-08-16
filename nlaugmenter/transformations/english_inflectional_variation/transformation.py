@@ -46,6 +46,7 @@ class EnglishInflectionalVariation(SentenceOperation):
         super().__init__(seed=seed, max_outputs=max_outputs)
         self.tokenizer = BertPreTokenizer()
         self.tagger = PerceptronTagger()
+        self.seed=seed
         self.perturb_level = "word-level"
     ''' End of Amazon Addition '''
 
@@ -64,11 +65,9 @@ class EnglishInflectionalVariation(SentenceOperation):
             (tagged[0], ".") if "&" in tagged[0] else tagged
             for tagged in pos_tagged
         ]
-
-        random.seed(self.seed)
         perturbed_tokens = [
             self.randomly_inflect(
-                tokens, pos_tagged, random.randint(0, i * 1000)
+                tokens, pos_tagged, seed=self.seed
             )
             for i in range(self.max_outputs)
         ]
