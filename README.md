@@ -16,6 +16,13 @@ pip install transformers==4.21.1
 pip install -U torch==1.11.0+cu113 -f https://download.pytorch.org/whl/torch_stable.html
 ```
 
+We use TensorRT emulated quantization package, please install 
+from source following https://github.com/NVIDIA/TensorRT/tree/master/tools/pytorch-quantization
+
+## How to use the code?
+
+To evaluate quantized models you need to first prepare quantized models using `prepare-quantized-models/prepare_quantized_model.py`,
+and use `evaluate-public-models/evaluate_model.py` to evaluate the models on executation datasets for code.
 
 ## License
 The released code is under Apache-2.0 license.

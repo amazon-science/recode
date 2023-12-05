@@ -11,6 +11,20 @@ import torch.distributed as dist
 import os
 
 
+def compute_amax(model, **kwargs):
+    import pytorch_quantization.nn as quant_nn
+    import pytorch_quantization.calib as calib
+    import torch.distributed as dist
+    for name, module in model.named_modules():
+        if isinstance(module, quant_nn.TensorQuantizer):
+            if module._calibrator is not None:
+                if isinstance(module._calibrator, calib.MaxCalibrator):
+                    module.load_calib_amax()
+                else:
+                    module.load_calib_amax(**kwargs)
+            print(F"{name:40}: {module}")
+
+
 def parse_args():
     parser=argparse.ArgumentParser(description="a script to evaluate public models")
     parser.add_argument('--model_name_or_path', type=str, default=None,
@@ -41,6 +55,12 @@ def parse_args():
                         help='To use brain float 16')
     parser.add_argument('--fp16', default=False, action='store_true',
                         help='To use float 16')
+    parser.add_argument('--dynamic', default=False, action='store_true',
+                        help='Flag to use int8 weights with dynamic quantization')
+    parser.add_argument('--static', default=False, action='store_true',
+                        help='Flag to use int8 weights with static quantization')
+    parser.add_argument('--mse', default=False, action='store_true',
+                        help='Use MSE for calibration')
     parser.add_argument('--use_fast_tokenizer', default=False, action='store_true',
                         help='Set to use fast tokenizer')
     parser.add_argument('--use_stopping_criteria', default=False, action='store_true',
@@ -237,8 +257,17 @@ def main():
     else:
         tokenizer = AutoTokenizer.from_pretrained(args.tokenizer_name, use_fast=False)
         
-
-    model = AutoModelForCausalLM.from_pretrained(args.model_name_or_path)
+    if args.dynamic:
+        print('Loading model for dynamic quantization')
+        model = torch.load(args.model_name_or_path)
+    elif args.static:
+        print('Loading model for static quantization')
+        model = torch.load(args.model_name_or_path, map_location=f'cuda:{device}')
+        if args.mse:
+            with torch.no_grad():
+                compute_amax(model, method='mse')
+    else:
+        model = AutoModelForCausalLM.from_pretrained(args.model_name_or_path)
     
     if args.bf16:
         model.to(dtype=torch.bfloat16).to(device)
